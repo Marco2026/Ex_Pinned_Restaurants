@@ -23,8 +23,8 @@ function remove (id) {
   return destroy(`restaurants/${id}`)
 }
 
-function togglePin (id) {
+function togglePinned (id) {
   return patch(`restaurants/${id}/togglePin`)
 }
 
-export { getAll, getDetail, getRestaurantCategories, create, update, remove, togglePin }
+export { getAll, getDetail, getRestaurantCategories, create, update, remove, togglePinned }
