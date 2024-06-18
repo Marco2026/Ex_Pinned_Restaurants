@@ -45,9 +45,9 @@ export default function ConfirmationModal (props) {
           styles.actionButton
         ]}>
       <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
-        <MaterialCommunityIcons name='delete' color={'white'} size={20}/>
+        <MaterialCommunityIcons name='check-outline' color={'white'} size={20}/>
         <TextRegular textStyle={styles.text}>
-          Confirm delete
+          Confirm
         </TextRegular>
       </View>
     </Pressable>
