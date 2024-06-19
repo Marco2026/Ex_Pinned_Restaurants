@@ -63,7 +63,7 @@ const loadFileRoutes = function (app) {
       RestaurantMiddleware.checkRestaurantOwnership,
       OrderController.analytics)
 
-  app.route('/restaurants/:restaurantId/togglePin')
+  app.route('/restaurants/:restaurantId/togglePinned')
     .patch(
       isLoggedIn,
       hasRole('owner'),

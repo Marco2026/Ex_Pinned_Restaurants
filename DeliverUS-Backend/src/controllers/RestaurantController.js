@@ -28,8 +28,7 @@ const indexOwner = async function (req, res) {
         include: [{
           model: RestaurantCategory,
           as: 'restaurantCategory'
-        }],
-        order: [['pinnedAt', 'ASC']]
+        }]
       })
     res.json(restaurants)
   } catch (err) {
@@ -100,8 +99,8 @@ const togglePinned = async function (req, res) {
   try {
     const restaurant = await Restaurant.findByPk(req.params.restaurantId)
     await Restaurant.update(
-      {pinnedAt: restaurant.pinnedAt ? null : new Date() },
-      { where: { id: req.params.restaurantId } }
+      { pinnedAt: restaurant.pinnedAt ? null : new Date() },
+      { where: { id: restaurant.id } }
     )
     const updatedRestaurant = await Restaurant.findByPk(req.params.restaurantId)
     res.json(updatedRestaurant)
