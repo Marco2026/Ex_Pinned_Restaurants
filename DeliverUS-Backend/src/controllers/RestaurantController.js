@@ -1,5 +1,7 @@
 import { Restaurant, Product, RestaurantCategory, ProductCategory } from '../models/models.js'
 
+import { Sequelize } from 'sequelize'
+
 const index = async function (req, res) {
   try {
     const restaurants = await Restaurant.findAll(
@@ -21,19 +23,40 @@ const index = async function (req, res) {
 
 const indexOwner = async function (req, res) {
   try {
-    const restaurants = await Restaurant.findAll(
-      {
-        attributes: { exclude: ['userId'] },
-        where: { userId: req.user.id },
-        include: [{
-          model: RestaurantCategory,
-          as: 'restaurantCategory'
-        }]
-      })
+    const restaurants = [...(await _getPinnedRestaurants(req)), ...(await _getNotPinnedRestaurants(req))]
     res.json(restaurants)
   } catch (err) {
     res.status(500).send(err)
   }
+}
+
+async function _getNotPinnedRestaurants (req) {
+  return await Restaurant.findAll({
+    attributes: { exclude: ['userId'] },
+    where: { 
+      userId: req.user.id,
+      pinnedAt: null
+    },
+    include: [{
+      model: RestaurantCategory,
+      as: 'restaurantCategory'
+    }]
+  })
+}
+
+async function _getPinnedRestaurants (req) {
+  return await Restaurant.findAll({
+    attributes: { exclude: ['userId'] },
+    where: { 
+      userId: req.user.id,
+      pinnedAt: { [Sequelize.Op.not]: null }
+    },
+    include: [{
+      model: RestaurantCategory,
+      as: 'restaurantCategory'
+    }],
+    order: [['pinnedAt', 'ASC']]
+  })
 }
 
 const create = async function (req, res) {
