@@ -1,4 +1,4 @@
-import { get, post, put, destroy } from './helpers/ApiRequestsHelper'
+import { get, post, put, destroy, patch } from './helpers/ApiRequestsHelper'
 function getAll () {
   return get('users/myrestaurants')
 }
