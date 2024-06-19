@@ -24,7 +24,7 @@ function remove (id) {
 }
 
 function togglePinned (id) {
-  return patch(`restaurants/${id}/togglePin`)
+  return patch(`restaurants/${id}/togglePinned`)
 }
 
 export { getAll, getDetail, getRestaurantCategories, create, update, remove, togglePinned }
